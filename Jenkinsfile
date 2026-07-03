@@ -36,18 +36,30 @@ pipeline {
         }
     }
 
-    post {
+post {
         success {
             echo 'Pipeline succeeded!'
-            mail to: 'your-email@example.com',
-                 subject: "SUCCESS: Jenkins Build #${env.BUILD_NUMBER}",
-                 body: "Pipeline completed successfully. Job: ${env.JOB_NAME}"
+            script {
+                try {
+                    mail to: 'banalasusmitha05@gmail.com',
+                         subject: "SUCCESS: Jenkins Build #${env.BUILD_NUMBER}",
+                         body: "Pipeline completed successfully. Job: ${env.JOB_NAME}"
+                } catch (e) {
+                    echo "Email notification skipped: ${e.message}"
+                }
+            }
         }
         failure {
             echo 'Pipeline failed!'
-            mail to: 'your-email@example.com',
-                 subject: "FAILURE: Jenkins Build #${env.BUILD_NUMBER}",
-                 body: "Pipeline failed. Check: ${env.BUILD_URL}"
+            script {
+                try {
+                    mail to: 'banalasusmitha05@gmail.com',
+                         subject: "FAILURE: Jenkins Build #${env.BUILD_NUMBER}",
+                         body: "Pipeline failed. Check: ${env.BUILD_URL}"
+                } catch (e) {
+                    echo "Email notification skipped: ${e.message}"
+                }
+            }
         }
     }
 }
