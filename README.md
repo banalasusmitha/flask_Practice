@@ -69,7 +69,7 @@ Registration application: one using Jenkins and one using GitHub Actions.
 - (Jenkins) An Ubuntu server with Java 21 and Jenkins installed
 - (GitHub Actions) No setup — runs on GitHub-hosted runners
 
-## Task 1 — Jenkins Pipeline
+## — Jenkins Pipeline
 Defined in the `Jenkinsfile` at the repo root, running on a Jenkins server
 hosted on an AWS EC2 (Ubuntu) instance.
 
@@ -84,7 +84,7 @@ Trigger: a GitHub webhook (repo Settings → Webhooks →
 Notifications: the `post` block emails success/failure using the SMTP server
 configured under Manage Jenkins → System → E-mail Notification.
 
-## Task 2 — GitHub Actions Workflow
+## — GitHub Actions Workflow
 Defined in `.github/workflows/ci-cd.yml`, running on GitHub-hosted Ubuntu runners.
 
 Jobs:
