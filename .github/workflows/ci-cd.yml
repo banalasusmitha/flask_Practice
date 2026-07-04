@@ -36,7 +36,7 @@ jobs:
           pip install flask flask-pymongo python-dotenv pymongo certifi pytest
 
       - name: Run tests with pytest
-        run: pytest test_app.py -v
+        run: pytest test_smoke.py -v
 
       - name: Build (prepare for deployment)
         run: echo "Build complete. Application ready for deployment."
