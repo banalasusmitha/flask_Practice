@@ -100,6 +100,7 @@ Stored under Settings → Secrets and variables → Actions, referenced as
 `${{ secrets.NAME }}`:
 - `STAGING_API_TOKEN` — used by the staging deploy job.
 - `PROD_API_TOKEN`
+---
 
 ### 4. Configure environment variables
 
