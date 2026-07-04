@@ -4,7 +4,7 @@ Verifies the Flask app object exists and the app is importable/configurable.
 """
 import os
 
-# Provide dummy env vars so app.py imports cleanly without a real DB....!
+# Provide dummy env vars so app.py imports cleanly without a real DB..!
 os.environ.setdefault("MONGO_URI", "mongodb://localhost:27017/ci_dummy")
 os.environ.setdefault("SECRET_KEY", "ci-test-secret")
 
