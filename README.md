@@ -57,6 +57,49 @@ Flask-PyMongo
 python-dotenv
 bson
 ```
+---
+
+# CI/CD Pipelines
+
+This repository implements two CI/CD pipelines for the Flask Student
+Registration application: one using Jenkins and one using GitHub Actions.
+
+## Prerequisites
+- Python 3, pip, Git
+- (Jenkins) An Ubuntu server with Java 21 and Jenkins installed
+- (GitHub Actions) No setup — runs on GitHub-hosted runners
+
+## Task 1 — Jenkins Pipeline
+Defined in the `Jenkinsfile` at the repo root, running on a Jenkins server
+hosted on an AWS EC2 (Ubuntu) instance.
+
+Stages:
+1. Build — creates a Python virtual environment and installs dependencies with pip.
+2. Test — runs the test suite with pytest.
+3. Deploy — deploys to a staging environment if tests pass.
+
+Trigger: a GitHub webhook (repo Settings → Webhooks →
+`http://<jenkins-ip>:8080/github-webhook/`) starts a build on every push to main.
+
+Notifications: the `post` block emails success/failure using the SMTP server
+configured under Manage Jenkins → System → E-mail Notification.
+
+## Task 2 — GitHub Actions Workflow
+Defined in `.github/workflows/ci-cd.yml`, running on GitHub-hosted Ubuntu runners.
+
+Jobs:
+- build-and-test — checkout, setup Python, install dependencies (pip), run
+  pytest, and build. Runs on pushes to main and staging.
+- deploy-staging — runs only on pushes to the staging branch.
+- deploy-production — runs only when a GitHub Release is published (tag v1.0.0).
+
+Deploy jobs use `needs: build-and-test`, so they run only if tests pass.
+
+### Configuring Secrets
+Stored under Settings → Secrets and variables → Actions, referenced as
+`${{ secrets.NAME }}`:
+- `STAGING_API_TOKEN` — used by the staging deploy job.
+- `PROD_API_TOKEN`
 
 ### 4. Configure environment variables
 
